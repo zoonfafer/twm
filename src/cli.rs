@@ -48,10 +48,12 @@ pub fn parse() -> Result<()> {
     // handle a path directly being passed in first
     let workspace_path = if let Some(path) = args.path.clone() {
         let path_full = std::fs::canonicalize(path)?;
-        match SafePath::try_from(path_full.as_path()) {
+        let ok_path = match SafePath::try_from(path_full.as_path()) {
             Ok(p) => p,
             Err(_) => anyhow::bail!("Path is not valid UTF-8"),
-        }
+        };
+        find_workspaces_in_dir(ok_path.path.as_str(), &config, &mut matched_workspaces);
+        ok_path
     } else {
         for dir in &config.search_paths {
             match SafePath::try_from(Path::new(dir)) {
