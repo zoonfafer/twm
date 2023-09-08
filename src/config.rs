@@ -10,6 +10,7 @@ use std::str::FromStr;
 pub struct WorkspaceDefinition {
     pub name: String,
     pub has_any_file: Vec<String>,
+    pub has_all_files: Option<Vec<String>>,
     pub default_layout: Option<String>,
 }
 
@@ -66,6 +67,7 @@ impl TryFrom<RawTwmGlobal> for TwmGlobal {
             None => vec![WorkspaceDefinition {
                 name: String::from("default"),
                 has_any_file: vec![".git".to_string(), ".twm.yaml".to_string()],
+                has_all_files: Some(vec![]),
                 default_layout: None,
             }],
         };

@@ -33,6 +33,8 @@ workspace_definitions:             # our list of workspaces, each with different
         - setup.py
         - pyproject.toml
         - Pipfile
+      has_all_files:               # if all files in this list are present, we consider it a match
+        - Pipfile
       default_layout: python-dev   # the hierarchy for how a layout gets chosen is user opts to select manually > local layout > default for workspace type
 
     - name: node                   # the order of these definitions matters - if a directory matches multiple, the first one wins

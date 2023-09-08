@@ -63,12 +63,27 @@ pub fn find_workspaces_in_dir<'a>(
         };
 
         let mut workspace_type: Option<&'a str> = None;
+        let mut has_all_files: bool = true;
 
         for (_, workspace_definition) in &config.workspace_definitions {
-            for file_name in &workspace_definition.has_any_file {
-                if entry.path().join(file_name).exists() {
-                    workspace_type = Some(workspace_definition.name.as_str());
-                    break;
+            match &workspace_definition.has_all_files {
+                Some(filenames) => {
+                    for file_name in filenames {
+                        if !entry.path().join(file_name).exists() {
+                            has_all_files = false;
+                            break;
+                        }
+                    }
+                }
+                None => (),
+            }
+
+            if has_all_files {
+                for file_name in &workspace_definition.has_any_file {
+                    if entry.path().join(file_name).exists() {
+                        workspace_type = Some(workspace_definition.name.as_str());
+                        break;
+                    }
                 }
             }
             if workspace_type.is_some() {
