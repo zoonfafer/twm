@@ -88,6 +88,13 @@ cargo install twm
 
 It is also available on NixOS via [nixpkgs](https://search.nixos.org/packages?channel=unstable&show=twm&from=0&size=50&sort=relevance&type=packages&query=twm)
 
+### Nix Flake
+
+```console
+> nix run github:vinnymeller/twm -- [TWM_OPTIONS...]
+```
+
+
 ## Configuration
 See [CONFIGURATION.md](./doc/CONFIGURATION.md)
 
