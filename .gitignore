@@ -1,6 +1,10 @@
 # Nix
 result
 
+# Nix dev profile
+.dev
+.dev-*-link
+
 .direnv/
 target/
 .envrc
